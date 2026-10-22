@@ -218,3 +218,53 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# ---------------------------------------------------------------------------
+# RSE project-specific rules
+# ---------------------------------------------------------------------------
+
+# Secrets: keep only the example env file
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+secrets/
+credentials*.json
+service-account*.json
+
+# Local datasets: track directory placeholders only
+data/raw/*
+data/processed/*
+data/synthetic/*
+!data/*/.gitkeep
+
+# Experiment outputs and generated artifacts
+experiments/*
+!experiments/.gitkeep
+results/
+outputs/
+reports/
+runs/
+mlruns/
+wandb/
+*.parquet
+*.feather
+*.arrow
+
+# Model weights, indexes, and caches
+models/
+checkpoints/
+*.bin
+*.pt
+*.pth
+*.onnx
+*.safetensors
+*.gguf
+*.faiss
+*.index
+.cache/
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
