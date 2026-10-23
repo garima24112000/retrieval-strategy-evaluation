@@ -1,0 +1,20 @@
+# Claude model aliases used across RSE (RSE-17).
+#
+# Code refers to aliases ("bulk", "judge"), never to raw model IDs, so a model can be
+# swapped here without touching code. Fill model_id from the Claude Console (Models page,
+# or run `uv run python scripts/llm_smoke.py --list`). Prices are USD per million tokens
+# from the Pricing page; leave them out and cost is logged as null instead of a wrong number.
+
+[models.bulk]
+# Claude Haiku 5.5: summaries, doc2query, query rewriting, answer generation
+model_id = "REPLACE_WITH_HAIKU_MODEL_ID"
+max_tokens = 1024
+# input_per_mtok = 0.00
+# output_per_mtok = 0.00
+
+[models.judge]
+# Claude Sonnet 5.5: synthetic documents and the LLM judge
+model_id = "REPLACE_WITH_SONNET_MODEL_ID"
+max_tokens = 1024
+# input_per_mtok = 0.00
+# output_per_mtok = 0.00
