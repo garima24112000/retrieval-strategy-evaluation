@@ -13,8 +13,12 @@ classifiers = [
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
 ]
-# Runtime dependencies are intentionally empty until features are implemented.
-dependencies = []
+dependencies = [
+    "numpy>=1.26",
+    "pgvector>=0.3",
+    "psycopg[binary]>=3.2",
+    "python-dotenv>=1.0",
+]
 
 [project.optional-dependencies]
 dev = [
