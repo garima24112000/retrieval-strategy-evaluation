@@ -55,22 +55,36 @@ Claude LLMs, FastAPI, Docker.
 
 ## Setup
 
-Requires Python 3.11+.
+Requires Python 3.11+, [uv](https://docs.astral.sh/uv/) and Docker.
 
 ```bash
-python -m venv .venv
-source .venv/bin/activate
-pip install -e ".[dev]"
-cp .env.example .env   # fill in local values; never commit .env
+uv sync --extra dev            # create .venv and install from uv.lock
+cp .env.example .env           # fill in local values; never commit .env
+uv run pre-commit install      # run lint, format and secret checks on every commit
+```
+
+Local database (PostgreSQL + pgvector in Docker, project name `rse`, port 5433):
+
+```bash
+./scripts/db-up.sh             # start the database and apply db/schema.sql
+docker compose stop            # stop it when you are done; data is kept
+```
+
+Claude models are configured by alias in `configs/models.toml`. Check that both answer:
+
+```bash
+uv run python scripts/llm_smoke.py
 ```
 
 Run checks:
 
 ```bash
-ruff check .
-ruff format --check .
-pytest
+uv run pre-commit run --all-files
+uv run pytest
 ```
+
+Database tests in `tests/integration/` are skipped when `DATABASE_URL` is not set (as in CI).
+See [docs/secrets.md](docs/secrets.md) for how secrets are handled.
 
 ## Evaluation plan (planned)
 
@@ -92,6 +106,7 @@ reproduced and compared across strategies.
 ## Development status
 
 - [x] Repository scaffolding, packaging, lint/test tooling, CI
+- [x] Local PostgreSQL + pgvector, schema v0, pre-commit with secret scanning, Claude client
 - [ ] Dataset curation and synthetic data generation
 - [ ] Baseline retrieval (BM25)
 - [ ] Dense, hybrid, and reranking strategies

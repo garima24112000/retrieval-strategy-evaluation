@@ -1,0 +1,7 @@
+# gitleaks config (RSE-16): default rules, plus an allowlist for the placeholder-only example file.
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Placeholder values only"
+paths = ['''\.env\.example$''']
